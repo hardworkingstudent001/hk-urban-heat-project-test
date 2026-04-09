@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 7% Trap: Urban Heat Islands in Hong Kong</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700&family=Playfair+Display:wght@700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">The 7% Trap</h1>
+            <p class="hero-subtitle">Concrete, Crowds, and Hong Kong's Urban Heat Islands</p>
+            <div class="hero-stat">
+                <span class="stat-number">65%</span>
+                <span class="stat-label">of Hong Kong is green space</span>
+            </div>
+            <div class="hero-stat">
+                <span class="stat-number">7%</span>
+                <span class="stat-label">holds 7.5 million people</span>
+            </div>
+            <a href="#story" class="scroll-btn">Explore the Data ↓</a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav" id="nav">
+        <div class="nav-container">
+            <div class="nav-logo">HK Heat Study</div>
+            <ul class="nav-links">
+                <li><a href="#story">The Story</a></li>
+                <li><a href="#intensity">Heat Intensity</a></li>
+                <li><a href="#delta">Urban Heat Delta</a></li>
+                <li><a href="#population">Population Risk</a></li>
+                <li><a href="#map">Heat Map</a></li>
+                <li><a href="#insights">Insights</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- KPI Dashboard Section -->
+    <section class="kpi-section" id="kpi">
+        <div class="container">
+            <h2 class="section-title">Key Performance Indicators</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card" data-aos="fade-up">
+                    <div class="kpi-icon">🌡️</div>
+                    <div class="kpi-value" id="maxTemp">38°C</div>
+                    <div class="kpi-label">Maximum Recorded Temperature</div>
+                    <div class="kpi-district">Yuen Long District</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="kpi-icon">🏙️</div>
+                    <div class="kpi-value" id="urbanDelta">+2.5°C</div>
+                    <div class="kpi-label">Urban Heat Premium</div>
+                    <div class="kpi-district">vs Rural Areas</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-value" id="riskPop">2.1M</div>
+                    <div class="kpi-label">High-Risk Population</div>
+                    <div class="kpi-district">Living in Heat Zones</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="kpi-icon">🏗️</div>
+                    <div class="kpi-value" id="concreteRatio">93%</div>
+                    <div class="kpi-label">Concrete Coverage</div>
+                    <div class="kpi-district">In Residential Zones</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Introduction -->
+    <section class="story-section" id="story">
+        <div class="container">
+            <div class="story-block">
+                <h2 class="section-title">The Paradox of a "Green City"</h2>
+                <div class="story-content">
+                    <p class="lead-text">
+                        Hong Kong proudly claims that <strong>65% of its land</strong> is covered by woodland 
+                        and shrubland. Yet its citizens are among the most heat-stressed in Asia. 
+                        <span class="highlight">How can a "green city" be so hot?</span>
+                    </p>
+                    <p>
+                        The answer lies in a cruel irony of urban planning: while the mountains and country 
+                        parks remain pristine and cool, <strong>7.5 million people</strong> are squeezed into 
+                        just <strong>7% of the land</strong>—creating concrete canyons that trap heat long 
+                        after the sun sets.
+                    </p>
+                    <p>
+                        Using real-time data from the Hong Kong Observatory, population census records, and 
+                        land utilization surveys, we've uncovered the hidden geography of Hong Kong's 
+                        <span class="term" data-tooltip="Areas where temperatures are significantly higher than surrounding rural areas due to human activities and infrastructure">Urban Heat Islands</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heat Intensity Section -->
+    <section class="data-section" id="intensity">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Heat Intensity by District</h2>
+                <p class="section-description">
+                    The Intensity Score reveals which districts bear the highest temperature burden—
+                    and how extreme conditions can become.
+                </p>
+            </div>
+            
+            <div class="visualization-container">
+                <div class="chart-wrapper">
+                    <img src="images/intensity-score-district.png" alt="Sum of Intensity Score by District" class="chart-image" id="intensityChart">
+                    <div class="chart-placeholder" id="intensityChartPlaceholder">
+                        <!-- Fallback visualization using JavaScript -->
+                        <canvas id="intensityCanvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="insight-panel">
+                    <h3 class="insight-title">📊 Key Findings</h3>
+                    <div class="insight-content">
+                        <div class="finding">
+                            <span class="finding-label hot">Hottest Districts</span>
+                            <p><strong>Yuen Long</strong> and <strong>Southern/Yau Tsim Mong</strong> 
+                            record the highest intensity scores, with temperatures reaching 
+                            <span class="temp-badge hot">37-38°C</span></p>
+                        </div>
+                        <div class="finding">
+                            <span class="finding-label cool">Coolest Districts</span>
+                            <p><strong>North District</strong> and <strong>Tuen Mun</strong> 
+                            show the lowest scores, typically staying at 
+                            <span class="temp-badge cool">33-34°C</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-explanation">
+                        <h4>What does Intensity Score mean?</h4>
+                        <p>The Intensity Score measures the maximum heat burden experienced by residents 
+                        in each district. A higher score indicates that people in that area are exposed 
+                        to more extreme temperatures during peak heat hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urban Heat Delta Section -->
+    <section class="data-section alt-bg" id="delta">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Urban Heat Delta</h2>
+                <p class="section-description">
+                    The difference between day and night temperatures reveals the true 
+                    "heat trap" effect of concrete jungles.
+                </p>
+            </div>
+            
+            <div class="visualization-container reverse">
+                <div class="insight-panel">
+                    <h3 class="insight-title">🌡️ Understanding the Delta</h3>
+                    <div class="delta-explainer">
+                        <div class="delta-scale">
+                            <div class="scale-item high">
+                                <span class="scale-value">High Delta</span>
+                                <span class="scale-meaning">More concrete → Smaller day/night difference → 
+                                Stronger heat island effect</span>
+                            </div>
+                            <div class="scale-item low">
+                                <span class="scale-value">Low Delta</span>
+                                <span class="scale-meaning">More greenery → Larger day/night difference → 
+                                Natural cooling at night</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-content">
+                        <div class="finding">
+                            <span class="finding-label hot">Highest Urban Heat Effect</span>
+                            <p><strong>Sai Kung</strong> and <strong>Tsuen Wan</strong> show the 
+                            highest delta values—nights stay almost as hot as days.</p>
+                        </div>
+                        <div class="finding">
+                            <span class="finding-label cool">Best Natural Cooling</span>
+                            <p><strong>North District</strong> and <strong>Yuen Long</strong> 
+                            (Delta: -2.00) show the largest temperature drops at night.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-wrapper">
+                    <img src="images/urban-heat-delta.png" alt="Urban Heat Delta by District" class="chart-image" id="deltaChart">
+                    <div class="chart-placeholder" id="deltaChartPlaceholder">
+                        <canvas id="deltaCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Case Study Callout -->
+            <div class="case-study-box">
+                <h4>🔍 Case Study: Yuen Long Paradox</h4>
+                <div class="case-content">
+                    <p>
+                        Yuen Long presents a fascinating paradox: it has the <strong>lowest Urban Heat Delta 
+                        (-2.00)</strong>, meaning large day-night temperature swings. Yet its daytime 
+                        <strong>Intensity Score reaches 37-38°C</strong>—among the highest in Hong Kong.
+                    </p>
+                    <p class="case-conclusion">
+                        <strong>Conclusion:</strong> While Yuen Long cools down significantly at night, 
+                        its residents still suffer extreme heat during the day. This suggests that 
+                        <em>nighttime relief doesn't offset daytime heat stress</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Population Risk Section -->
+    <section class="data-section" id="population">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Population at Risk</h2>
+                <p class="section-description">
+                    Heat becomes deadly when combined with density. Who is most vulnerable?
+                </p>
+            </div>
+            
+            <div class="dual-chart-container">
+                <div class="chart-card">
+                    <h3 class="chart-title">High-Risk Population Distribution</h3>
+                    <div class="chart-wrapper">
+                        <img src="images/high-risk-population-bar.png" alt="High Risk Population Bar Chart" class="chart-image" id="riskBarChart">
+                        <canvas id="riskBarCanvas" class="chart-placeholder"></canvas>
+                    </div>
+                    <div class="chart-insight">
+                        <p>The bar chart shows how high-risk populations are distributed across 
+                        density levels. <strong>More people living in high-density areas = 
+                        higher collective heat exposure.</strong></p>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title">Population Density Composition</h3>
+                    <div class="chart-wrapper">
+                        <img src="images/population-density-donut.png" alt="Population Density Donut Chart" class="chart-image" id="densityDonut">
+                        <canvas id="densityDonutCanvas" class="chart-placeholder"></canvas>
+                    </div>
+                    <div class="chart-insight">
+                        <p>The donut chart reveals the proportion of Hong Kong's population 
+                        living at different density levels. <strong>The majority cluster in 
+                        medium-to-high density zones.</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="population-insight-grid">
+                <div class="insight-card warning">
+                    <div class="insight-icon">⚠️</div>
+                    <h4>Yuen Long Alert</h4>
+                    <p>If Yuen Long experiences a sudden population surge (events, holidays), 
+                    the district's temperature could spike dramatically due to the 
+                    combined effect of body heat and reduced air circulation.</p>
+                </div>
+                <div class="insight-card info">
+                    <div class="insight-icon">📈</div>
+                    <h4>Density ≠ Heat (Always)</h4>
+                    <p>Low population density doesn't guarantee lower temperatures. 
+                    Urban design, building materials, and green coverage play equally 
+                    important roles in determining local climate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="data-section alt-bg" id="map">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Heat Stress Map</h2>
+                <p class="section-description">
+                    Visualizing relative heat stress and population concentration across Hong Kong's 18 districts.
+                </p>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <img src="images/heat-stress-map.png" alt="Relative Heat Stress Map" class="map-image" id="heatMap">
+                    <div id="mapPlaceholder" class="map-placeholder">
+                        <!-- Interactive map fallback -->
+                    </div>
+                </div>
+                
+                <div class="map-legend">
+                    <h4>Map Legend</h4>
+                    <div class="legend-item">
+                        <span class="legend-circle large hot"></span>
+                        <span>Large circle = High population + High heat stress</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-circle small cool"></span>
+                        <span>Small circle = Lower population density + Lower stress</span>
+                    </div>
+                    <div class="legend-gradient">
+                        <span class="gradient-bar"></span>
+                        <div class="gradient-labels">
+                            <span>Low Heat Stress</span>
+                            <span>High Heat Stress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-insights">
+                <h3>What the Map Reveals</h3>
+                <div class="map-insight-grid">
+                    <div class="map-insight">
+                        <span class="district-name">Kowloon Districts</span>
+                        <p>The urban core shows consistently high heat stress with large 
+                        population bubbles—the epicenter of Hong Kong's heat island effect.</p>
+                    </div>
+                    <div class="map-insight">
+                        <span class="district-name">New Territories</span>
+                        <p>Mixed results: some new towns (Sha Tin, Tuen Mun) show moderate stress 
+                        despite lower density, suggesting building design matters.</p>
+                    </div>
+                    <div class="map-insight">
+                        <span class="district-name">Hong Kong Island</span>
+                        <p>Southern District shows lower stress despite proximity to urban areas—
+                        likely due to sea breezes and more green coverage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusions & Insights Section -->
+    <section class="insights-section" id="insights">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Insights & Recommendations</h2>
+            </div>
+            
+            <div class="conclusions-grid">
+                <div class="conclusion-card major">
+                    <div class="conclusion-number">1</div>
+                    <h3>The Heat Island is a Planning Problem</h3>
+                    <p>Our data reveals that Hong Kong's Urban Heat Island effect is not merely 
+                    a weather phenomenon—it's a direct consequence of how we've distributed 
+                    7.5 million people across just 7% of available land.</p>
+                    <div class="evidence">
+                        <strong>Evidence:</strong> Districts with highest concrete coverage 
+                        (Yau Tsim Mong, Kwun Tong) consistently show the smallest day-night 
+                        temperature differences.
+                    </div>
+                </div>
+                
+                <div class="conclusion-card major">
+                    <div class="conclusion-number">2</div>
+                    <h3>Nighttime Heat is the Hidden Killer</h3>
+                    <p>While daytime temperatures grab headlines, our Urban Heat Delta analysis 
+                    shows that <strong>the inability to cool down at night</strong> may pose 
+                    greater health risks, especially for the elderly.</p>
+                    <div class="evidence">
+                        <strong>Evidence:</strong> Sai Kung and Tsuen Wan show the highest delta 
+                        values—their nights remain nearly as hot as their days.
+                    </div>
+                </div>
+                
+                <div class="conclusion-card">
+                    <div class="conclusion-number">3</div>
+                    <h3>Density Alone Doesn't Determine Heat</h3>
+                    <p>Population density correlates with heat stress, but isn't the only factor. 
+                    Urban design, ventilation corridors, and green coverage can mitigate effects 
+                    even in dense areas.</p>
+                </div>
+                
+                <div class="conclusion-card">
+                    <div class="conclusion-number">4</div>
+                    <h3>Vulnerable Populations Need Targeted Relief</h3>
+                    <p>Over 2 million residents live in high-risk heat zones. These areas should 
+                    be prioritized for cooling centers, green infrastructure, and heat warning 
+                    systems.</p>
+                </div>
+            </div>
+            
+            <div class="recommendations-section">
+                <h3>Recommendations for Future Development</h3>
+                <div class="recommendations-grid">
+                    <div class="recommendation">
+                        <div class="rec-icon">🌳</div>
+                        <h4>Cooling Corridors</h4>
+                        <p>Future "nano-flat" developments must integrate airflow paths and 
+                        green corridors to prevent heat accumulation.</p>
+                    </div>
+                    <div class="recommendation">
+                        <div class="rec-icon">🏗️</div>
+                        <h4>Building Materials</h4>
+                        <p>Mandate heat-reflective surfaces and green roofs in new 
+                        constructions, especially in already-stressed districts.</p>
+                    </div>
+                    <div class="recommendation">
+                        <div class="rec-icon">📱</div>
+                        <h4>Early Warning Systems</h4>
+                        <p>Implement district-level heat alerts using real-time HKO data 
+                        to protect vulnerable populations.</p>
+                    </div>
+                    <div class="recommendation">
+                        <div class="rec-icon">🗺️</div>
+                        <h4>Zoning Reform</h4>
+                        <p>Reconsider development density caps in high-stress districts 
+                        and incentivize decentralization to cooler areas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Sources & Methodology -->
+    <section class="methodology-section" id="methodology">
+        <div class="container">
+            <h2 class="section-title">Data Sources & Methodology</h2>
+            <div class="methodology-grid">
+                <div class="source-card">
+                    <h4>🌡️ Weather Data</h4>
+                    <p>Hong Kong Observatory Live API</p>
+                    <span class="source-type">Real-time temperature readings per hour</span>
+                </div>
+                <div class="source-card">
+                    <h4>🗺️ Land Utilization</h4>
+                    <p>LUHK 2018 Survey (Planning Department)</p>
+                    <span class="source-type">Land classification by usage type</span>
+                </div>
+                <div class="source-card">
+                    <h4>👥 Population Data</h4>
+                    <p>Census and Statistics Department 2021</p>
+                    <span class="source-type">District-level population density</span>
+                </div>
+            </div>
+            
+            <div class="methodology-details">
+                <h3>Analysis Methods</h3>
+                <ul>
+                    <li><strong>Intensity Score:</strong> Calculated from maximum hourly temperature 
+                    readings across each district over the study period.</li>
+                    <li><strong>Urban Heat Delta:</strong> Derived from the difference between 
+                    average daytime (10:00-18:00) and nighttime (22:00-06:00) temperatures.</li>
+                    <li><strong>High-Risk Population:</strong> Defined as residents in areas with 
+                    both above-median temperature and above-median density.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>Hong Kong Urban Heat Island Study</h4>
+                    <p>A Data Story Project</p>
+                    <p>Course: Data Analytics</p>
+                    <p>Submission Date: April 2026</p>
+                </div>
+                <div class="footer-team">
+                    <h4>Team Members</h4>
+                    <p>[Your Team Names Here]</p>
+                    <p>[Your Team Names Here]</p>
+                    <p>[Your Team Names Here]</p>
+                    <p>[Your Team Names Here]</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Data sources: Hong Kong Observatory, Planning Department, Census and Statistics Department</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
